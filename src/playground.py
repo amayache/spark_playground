@@ -13,6 +13,13 @@ def create_spark_session():
 if __name__ == "__main__":
     spark = create_spark_session()
     try:
+
+        # 0. Streaming status
+        print("\n📋 PLAYGROUND")
+        print("-" * 30)
+        streaming_df = spark.read.parquet("data/raw/transactions")
+        streaming_df.agg(count("transaction_id").alias("total_transaction")).show(truncate=False)
+        # 1. Show sales performance
         print("\n💰 SALES PERFORMANCE")
         print("-" * 30)
         sales_df = spark.read.parquet("data/analytics/sales_performance")
